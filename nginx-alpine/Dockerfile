@@ -3,7 +3,7 @@ LABEL Author="Albert Montolio <albertmonro@gmail.com>" Description="Very basic n
 
 ENV WEB_FOLDER public
 ENV INDEX_FILE index.php
-ENV VIRTUAL_HOST localhost
+ENV VIRTUAL_DOMAIN localhost
 
 ADD config/default.conf /etc/nginx/conf.d/default.conf
 
