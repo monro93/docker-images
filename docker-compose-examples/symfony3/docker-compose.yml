@@ -1,0 +1,35 @@
+version: '3.7'
+
+services:
+    mysql:
+        image: mysql:8.0
+        restart: on-failure
+        ports:
+            - "3306:3306"
+        volumes:
+            - "./docker/mysql:/var/lib/mysql"
+        environment:
+            MYSQL_ROOT_PASSWORD: change-this-pass
+            MYSQL_DATABASE: database
+
+    php:
+        image: monro/php72-fpm:latest
+        restart: on-failure
+        user: 1001:1001
+        volumes:
+            - ./:/usr/src/app
+        environment:
+            USER_PASSWORD: change-this-pass
+
+    nginx:
+        image: monro/nginx-alpine:latest
+        restart: on-failure
+        environment:
+            WEB_FOLDER: web
+            INDEX_FILE: app.php
+            VIRTUAL_DOMAIN: app.local
+        volumes:
+            - ./:/usr/src/app
+            - ./docker/logs/nginx:/var/log/nginx
+        ports:
+            -  80:80
